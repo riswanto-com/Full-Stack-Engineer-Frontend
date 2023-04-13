@@ -2,6 +2,7 @@ import { CButton, CCard, CCardBody, CCol, CContainer, CForm, CFormInput, CFormSe
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export default function FormPage() {
   const paramsId = useParams();
@@ -51,24 +52,38 @@ export default function FormPage() {
       productPrice: productPrice,
       productUOM: productUOM,
     };
-    console.log(parameter)
+    console.log(parameter);
     if (!paramsId.idProduk) {
       axios.post('http://localhost:8080/product', parameter)
         .then(res => {
-          if(res.status===200){
+          if(res.data.status===true){
             navigate('/');
+          }else{
+            Swal.fire({
+              icon: 'warning',
+              text: res.data.messages[0],
+              showConfirmButton: false,
+              timer: 1500
+            });
           }
         }).catch(e => {
-          console.log(e);
+          console.log(e.status);
         })
     } else {
       axios.put('http://localhost:8080/api/product', parameter)
         .then(res => {
-          if(res.status===200){
+          if(res.data.status===true){
             navigate('/');
+          }else{
+            Swal.fire({
+              icon: 'warning',
+              text: res.data.messages[0],
+              showConfirmButton: false,
+              timer: 1500
+            });
           }
         }).catch(e => {
-          console.log(e);
+          console.log(e.status);
         })
     }
   }
@@ -86,20 +101,20 @@ export default function FormPage() {
               <CCardBody>
                 <CForm className="row g-3">
                   <CCol md={12}>
-                    <CFormInput type="text" defaultValue={productKode} onChange={e => setproductKode(e.target.value)} label="Kode Produk" />
+                    <CFormInput type="text" id="productKode" defaultValue={productKode} onChange={e => setproductKode(e.target.value)} label="Kode Produk" />
                   </CCol>
                   <CCol md={12}>
-                    <CFormInput type="text" defaultValue={productName} onChange={e => setproductName(e.target.value)} label="Nama Produk" />
+                    <CFormInput id="productName" type="text" defaultValue={productName} onChange={e => setproductName(e.target.value)} label="Nama Produk" />
                   </CCol>
                   <CCol xs={12}>
-                    <CFormTextarea
+                    <CFormTextarea id="productDiscription"
                       label="Diskripsi Produk"
                       rows={3}
                       defaultValue={productDiscription} onChange={e => setproductDiscription(e.target.value)}
                     ></CFormTextarea>
                   </CCol>
                   <CCol md={12}>
-                    <CFormInput type="text" defaultValue={productPrice} onChange={e => setproductPrice(e.target.value)} label="Harga Produk" />
+                    <CFormInput id="productPrice" type="text" defaultValue={productPrice} onChange={e => setproductPrice(e.target.value)} label="Harga Produk" />
                   </CCol>
                   <CCol md={12}>
                     <CFormSelect id="inputState" label="UOM">
