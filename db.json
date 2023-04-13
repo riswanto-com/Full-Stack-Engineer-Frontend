@@ -1,0 +1,28 @@
+{
+  "product": [
+    {
+      "productKode": "PO-84942",
+      "productName": "Leo",
+      "productDiscription": "djdjdjdj",
+      "productPrice": "20000",
+      "productUOM": "ROLL",
+      "id": 1
+    },
+    {
+      "productKode": "PO-8494",
+      "productName": "Leo",
+      "productDiscription": "djdjdjdj",
+      "productPrice": "20000",
+      "productUOM": "PCS",
+      "id": 2
+    },
+    {
+      "productKode": "PO-03303",
+      "productName": "Kok",
+      "productDiscription": "okkkk",
+      "productPrice": "90000",
+      "productUOM": "ROLL",
+      "id": 5
+    }
+  ]
+}
